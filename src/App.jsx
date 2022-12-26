@@ -1,5 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
+import React,{useState} from "react";
+import { useEffect } from 'react';
 
 let a = 10; // 변수
 const b = 20; // 상수
@@ -19,22 +21,56 @@ const b = 20; // 상수
 
 //3. 바벨(자바스크립트 ES5) -> ES6
 function App() {
-  let c; // undefined => null이 아니라 하나의 값이다.(정의되지않은 값)
-  console.log(1,c);
 
-  const mystyle={
-    color: 'red',
-  };
+  const [data,setData] = useState(0);
 
-  let list = [1,2,3]
+  const download = () => {
+    //다운로드 받고 (통신)
+    let downloadData=5;// 가정
+    setData(downloadData);
+  }
 
+  // 실행시점 : 
+  //(1) App() 함수가 최초 실행될 때(마운트될 때)
+  //(2) 상태 변수가 변경될 때
+  //(3) 의존리스트 관리를 할 수 있다.
+  useEffect(()=>{
+    console.log("useEffect() 실행됨");
+    download();
+  },[]);
+
+
+ // let number = 1; // 상태 값
+ const [number,setNumber] = useState(0);
+ const [num,setNum] = useState(5);
+ const [search,setSearch] = useState(0);
+
+  
+  const add = () => {
+    setNumber(number+1);
+    console.log('add',number);
+   }
+
+   //다운로드 받음
+   const [users,setUsers] = useState([]);
+
+
+   let sample = [
+    {id:1,name:'홍길동'},
+    {id:2,name:'임꺽정'},
+    {id:3,name:'장보고'},
+    {id:4,name:'코스'},
+  ];
+
+
+   //렌더링 시점 = 상태값 변경
   return <div>
-    <div style={mystyle}>
-    안녕{a===10?'10입니다':'10이 아닙니다.'}
+    <div>
+      <h1>검색:</h1>
+      <button onClick={()=>{setSearch(2)}}>검색하기</button>
+      <h1>데이터:{data}</h1>
+      <button onClick={()=>{setData(data+1)}}>더하기</button>
     </div>
-    <h1 className="box-style">해딩태크{b}</h1>
-    <div>{list.map((n)=> n)}</div>
-
   </div>
 }
 
