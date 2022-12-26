@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //concat, filter, map, slice, 스프레드 연산자
+        const a = [1,2,3];
+        //const b =a; // 얕은복사(원본까지변경)
+        const b = [...a]; // 깊은복사 (원본유지)
+        console.log("1.============스프레드 연산자");
+        b.push(4);
+        console.log(`a의 값은: ${a}`); //1,2,3
+        console.log(`b의 값은: ${b}`); //1,2,3,4
+
+
+        console.log("2.============ 추가하기");
+        const a2 = [1,2,3];
+        const b2 = a2.concat(4); // console.log => 1,2,3,4 로 concat은 원본까지 깊은복사
+        //const b2 = a2.push(4); => console.log => 4 => a2가 1,2,3,4 로 바껴버림
+        const c2 = [0,...a,4];
+
+        console.log(`a2의 값은: ${a2}`); // 1,2,3
+        console.log(`b2의 값은: ${b2}`); // 1,2,3,4
+        console.log(`c2의 값은 ${c2}`); //0,1,2,3,4 // concat은 끝에 추가하는것에 비해 얘는 앞에도 추가가능
+
+
+        console.log("3.============ 걸러내기"); // filter는 보통 삭제할 떄씀
+        const a3 = [1,2,3];
+        const b3 = a3.filter((n)=>{return n != 1}); // boolean을 return받는다. -> true만 걸러낸다.
+        console.log(b3); // 2,3
+
+        console.log("4.============ 잘라내기"); 
+        const a4 = [1,2,3];
+        const b4 = a4.slice(0,2);
+        console.log(b4); // [1,2] (마지막 인덱스 직전까지 짤라냄)
+        const c4 = [a4.slice(0,2)];
+        const c4_2 = [...a4.slice(0,2)];
+        console.log(c4); // [[1,2]] (배열안에 또 배열)
+        console.log(c4_2); // [1,2]
+        const c5 = [...a4.slice(0,2),4,...a4.slice(2,3)];
+        console.log(c5); // [1,2,4,3]
+
+        console.log("5.============ 반복하기"); 
+        const a5 = [1,2,3];
+        // for(let i=0; i<a5.length; i++){  // 리액트에서 이 for문 못씀 forEach() 써야함
+        //     console.log(a5[i]);
+        // }
+        
+       //a5.forEach((n)=>{console.log(n);}); // 리턴못함 ( void )
+        const b5 = a5.map((n)=>{return n;}); // 리턴가능 any -> 여기서 b5와 a5는 다른 레퍼런스다 (깊은복사니까)
+                                             // map의 강점은 return이 되므로 반복시에 각 item을 가공할 수 있다.
+        console.log(b5); // [1,2,3] -> const b5 = [...a5];
+
+    </script>
+</body>
+</html>
